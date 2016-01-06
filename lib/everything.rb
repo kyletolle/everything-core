@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load
+
 require 'fastenv'
 require 'everything/version'
 require 'everything/piece'
