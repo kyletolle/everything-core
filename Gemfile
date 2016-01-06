@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'fastenv'
+# Specify your gem's dependencies in fastenv.gemspec
+gemspec
 
