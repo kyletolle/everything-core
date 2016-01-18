@@ -1,4 +1,6 @@
 # Everything
+[![Gem Version](https://badge.fury.io/rb/everything-core.svg)](http://badge.fury.io/rb/everything-core)
+[![Build Status](https://travis-ci.org/kyletolle/everything-core.svg?branch=master)](https://travis-ci.org/kyletolle/everything-core)
 
 For familiarity with a `everything` repository, see the
 [intro](http://blog.kyletolle.com/introducing-everything/).
