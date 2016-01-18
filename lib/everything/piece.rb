@@ -6,12 +6,12 @@ module Everything
       @full_path = full_path
     end
 
-    def title
-      @title ||= partitioned_content.first.sub('# ', '')
-    end
-
     def content
       @content ||= partitioned_content.last
+    end
+
+    def title
+      @title ||= partitioned_content.first.sub('# ', '')
     end
 
     def raw_markdown

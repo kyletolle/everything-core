@@ -27,6 +27,28 @@ MD
     end
   end
 
+  describe '#content' do
+    include_context 'with fake markdown file'
+
+    let(:expected_content) do
+<<TEXT
+The content is totally this right here.
+
+And it might even include multiple lines!
+TEXT
+    end
+
+    it 'is only the markdown after the title' do
+      expect(piece.content).to eq(expected_content)
+    end
+  end
+
+  describe '#full_path' do
+    it "returns the piece's full path" do
+      expect(piece.full_path).to eq(given_full_path)
+    end
+  end
+
   describe '#raw_markdown' do
     include_context 'with fake markdown file'
 
@@ -48,28 +70,6 @@ MD
 
     it 'is text of the markdown title' do
       expect(piece.title).to eq(expected_title)
-    end
-  end
-
-  describe '#content' do
-    include_context 'with fake markdown file'
-
-    let(:expected_content) do
-<<TEXT
-The content is totally this right here.
-
-And it might even include multiple lines!
-TEXT
-    end
-
-    it 'is only the markdown after the title' do
-      expect(piece.content).to eq(expected_content)
-    end
-  end
-
-  describe '#full_path' do
-    it "returns the piece's full path" do
-      expect(piece.full_path).to eq(given_full_path)
     end
   end
 end
