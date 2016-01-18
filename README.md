@@ -1,6 +1,8 @@
 # Everything
 [![Gem Version](https://badge.fury.io/rb/everything-core.svg)](http://badge.fury.io/rb/everything-core)
 [![Build Status](https://travis-ci.org/kyletolle/everything-core.svg?branch=master)](https://travis-ci.org/kyletolle/everything-core)
+[![Code Climate](https://codeclimate.com/github/kyletolle/everything-core/badges/gpa.svg)](https://codeclimate.com/github/kyletolle/everything-core)
+[![Dependency Status](https://gemnasium.com/kyletolle/everything-core.svg)](https://gemnasium.com/kyletolle/everything-core)
 
 For familiarity with a `everything` repository, see the
 [intro](http://blog.kyletolle.com/introducing-everything/).
