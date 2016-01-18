@@ -1,5 +1,3 @@
-require './lib/everything/piece'
-
 describe Everything::Piece do
   let(:given_full_path) do
     'some/fake/path/here'

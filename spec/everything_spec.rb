@@ -1,5 +1,3 @@
-require './lib/everything'
-
 describe Everything do
   describe '.path' do
     let(:expected_path) do
