@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.5
+
+- Increase version number of dotenv dependency
+
 ## 0.0.4
 
 - Add Everything::Piece#full_path to return path of the piece
