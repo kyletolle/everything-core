@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in fastenv.gemspec
+# The gem's dependencies are specified in `everything-core.gemspec`.
 gemspec
 
