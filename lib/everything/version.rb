@@ -1,3 +1,3 @@
-class Everything
+module Everything
   VERSION = "0.0.2"
 end

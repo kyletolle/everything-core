@@ -5,7 +5,7 @@ require 'fastenv'
 require 'everything/version'
 require 'everything/piece'
 
-class Everything
+module Everything
   def self.path
     Fastenv.everything_path
   end

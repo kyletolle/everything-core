@@ -1,4 +1,4 @@
-class Everything
+module Everything
   class Piece
     def initialize(full_path)
       @full_path = full_path
