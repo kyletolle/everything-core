@@ -18,14 +18,18 @@ And it might even include multiple lines!
 MD
   end
 
-  before do
-    expect(File)
-      .to receive(:read)
-      .with(expected_markdown_file_path)
-      .and_return(fake_markdown_text)
+  shared_context 'with fake markdown file' do
+    before do
+      expect(File)
+        .to receive(:read)
+        .with(expected_markdown_file_path)
+        .and_return(fake_markdown_text)
+    end
   end
 
   describe '#raw_markdown' do
+    include_context 'with fake markdown file'
+
     let(:expected_raw_markdown) do
       fake_markdown_text
     end
@@ -36,6 +40,8 @@ MD
   end
 
   describe '#title' do
+    include_context 'with fake markdown file'
+
     let(:expected_title) do
       'Piece Title Here'
     end
@@ -46,6 +52,8 @@ MD
   end
 
   describe '#content' do
+    include_context 'with fake markdown file'
+
     let(:expected_content) do
 <<TEXT
 The content is totally this right here.
@@ -56,6 +64,12 @@ TEXT
 
     it 'is only the markdown after the title' do
       expect(piece.content).to eq(expected_content)
+    end
+  end
+
+  describe '#full_path' do
+    it "returns the piece's full path" do
+      expect(piece.full_path).to eq(given_full_path)
     end
   end
 end

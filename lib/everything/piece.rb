@@ -1,5 +1,7 @@
 module Everything
   class Piece
+    attr_reader :full_path
+
     def initialize(full_path)
       @full_path = full_path
     end
