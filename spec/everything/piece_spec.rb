@@ -63,6 +63,25 @@ describe Everything::Piece do
     end
   end
 
+  describe '#public?' do
+    let(:metadata_double) do
+      instance_double(Everything::Piece::Metadata)
+    end
+
+    it "returns the metadata's public value" do
+      allow(Everything::Piece::Metadata)
+        .to receive(:new)
+        .and_return(metadata_double)
+
+      expect(metadata_double)
+        .to receive(:[])
+        .with('public')
+        .and_return(false)
+
+      expect(piece.public?).to eq(false)
+    end
+  end
+
   describe '#raw_markdown' do
     include_context 'with content double'
 

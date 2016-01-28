@@ -18,6 +18,9 @@ module Everything
       @metadata ||= Metadata.new(full_path)
     end
 
+    def public?
+      metadata['public']
+    end
   end
 end
 
