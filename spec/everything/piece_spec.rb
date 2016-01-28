@@ -5,41 +5,41 @@ describe Everything::Piece do
   let(:piece) do
     described_class.new(given_full_path)
   end
-  let(:expected_markdown_file_path) do
-    "#{given_full_path}/index.md"
-  end
-  let(:fake_markdown_text) do
-<<MD
-# Piece Title Here
+  shared_context 'with content double' do
+    let(:content_double) do
+      instance_double(Everything::Piece::Content)
+    end
 
-The content is totally this right here.
-
-And it might even include multiple lines!
-MD
-  end
-
-  shared_context 'with fake markdown file' do
     before do
-      expect(File)
-        .to receive(:read)
-        .with(expected_markdown_file_path)
-        .and_return(fake_markdown_text)
+      allow(Everything::Piece::Content)
+        .to receive(:new)
+        .and_return(content_double)
+    end
+  end
+
+  describe '#body' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:body)
+
+      piece.body
+
+      expect(content_double).to have_received(:body)
     end
   end
 
   describe '#content' do
-    include_context 'with fake markdown file'
-
-    let(:expected_content) do
-<<TEXT
-The content is totally this right here.
-
-And it might even include multiple lines!
-TEXT
+    it 'is an instance of Content' do
+      expect(piece.content).to be_a(Everything::Piece::Content)
     end
 
-    it 'is only the markdown after the title' do
-      expect(piece.content).to eq(expected_content)
+    it "is created with the piece's full path" do
+      expect(Everything::Piece::Content)
+        .to receive(:new)
+        .with(given_full_path)
+
+      piece.content
     end
   end
 
@@ -50,26 +50,26 @@ TEXT
   end
 
   describe '#raw_markdown' do
-    include_context 'with fake markdown file'
+    include_context 'with content double'
 
-    let(:expected_raw_markdown) do
-      fake_markdown_text
-    end
+    it 'delegates to the content' do
+      allow(content_double).to receive(:raw_markdown)
 
-    it "is all the file's markdown" do
-      expect(piece.raw_markdown).to eq(expected_raw_markdown)
+      piece.raw_markdown
+
+      expect(content_double).to have_received(:raw_markdown)
     end
   end
 
   describe '#title' do
-    include_context 'with fake markdown file'
+    include_context 'with content double'
 
-    let(:expected_title) do
-      'Piece Title Here'
-    end
+    it 'delegates to the content' do
+      allow(content_double).to receive(:title)
 
-    it 'is text of the markdown title' do
-      expect(piece.title).to eq(expected_title)
+      piece.title
+
+      expect(content_double).to have_received(:title)
     end
   end
 end

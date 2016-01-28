@@ -1,5 +1,7 @@
 module Everything
   class Piece
+    extend Forwardable
+
     attr_reader :full_path
 
     def initialize(full_path)
@@ -7,25 +9,10 @@ module Everything
     end
 
     def content
-      @content ||= partitioned_content.last
+      @content ||= Content.new(full_path)
     end
 
-    def title
-      @title ||= partitioned_content.first.sub('# ', '')
-    end
-
-    def raw_markdown
-      @raw_markdown ||= File.read(content_path)
-    end
-
-  private
-    def content_path
-      @content_path ||= File.join(@full_path, 'index.md')
-    end
-
-    def partitioned_content
-      @partitioned_content ||= raw_markdown.partition("\n\n")
-    end
+    def_delegators :content, :body, :raw_markdown, :title
   end
 end
 
