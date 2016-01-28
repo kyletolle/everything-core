@@ -47,7 +47,7 @@ your-piece-here/index.md
 
 # Your Piece Here
 
-The rest of the content of your file...
+The rest of the body of your file...
 
 ```
 
@@ -60,8 +60,12 @@ require 'everything'
 piece_path = File.join(Everything.path, 'your-piece-here')
 piece      = Everything::Piece.new(piece_path)
 
-piece.title   # => "Your Piece Here"
-piece.content # => "The rest of the content of your file...\n\n"
+piece.title         # => "Your Piece Here"
+piece.body          # => "The rest of the body of your file...\n\n"
+piece['categories'] # Returns the value for the `categories` metadata key
+piece.public?       # Convience method to return the value for the boolean `public` metadata key
+piece.content       # Return an instance of the piece's content
+piece.metadata      # Return an instance of the piece's metadata
 ```
 
 
