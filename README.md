@@ -60,6 +60,7 @@ require 'everything'
 piece_path = File.join(Everything.path, 'your-piece-here')
 piece      = Everything::Piece.new(piece_path)
 
+piece.name          # => 'your-piece-here'
 piece.title         # => "Your Piece Here"
 piece.body          # => "The rest of the body of your file...\n\n"
 piece['categories'] # Returns the value for the `categories` metadata key
