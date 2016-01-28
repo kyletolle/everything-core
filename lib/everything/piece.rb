@@ -17,4 +17,5 @@ module Everything
 end
 
 require 'everything/piece/content'
+require 'everything/piece/metadata'
 
