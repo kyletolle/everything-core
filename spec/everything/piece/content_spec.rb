@@ -10,7 +10,7 @@ describe Everything::Piece::Content do
       <<MD
 # Piece Title Here
 
-The content is totally this right here.
+The body is totally this right here.
 
 And it might even include multiple lines!
 MD
@@ -58,7 +58,7 @@ MD
 
     let(:expected_body) do
     <<MD
-The content is totally this right here.
+The body is totally this right here.
 
 And it might even include multiple lines!
 MD
