@@ -29,3 +29,5 @@ module Everything
   end
 end
 
+require 'everything/piece/content'
+
