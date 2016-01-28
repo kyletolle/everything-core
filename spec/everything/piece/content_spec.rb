@@ -1,15 +1,6 @@
+require './spec/support/pieces'
+
 describe Everything::Piece::Content do
-  shared_context 'with tmp piece on disk' do
-    let!(:tmp_piece_path) do
-      Dir.mktmpdir
-    end
-
-    after do
-      # This will recursively remove everything under that tmp dir.
-      FileUtils.remove_entry(tmp_piece_path)
-    end
-  end
-
   shared_context 'with tmp piece markdown file on disk' do
     let(:tmp_piece_markdown_path) do
       File.join(tmp_piece_path, 'index.md')
@@ -36,7 +27,7 @@ MD
     described_class.new(tmp_piece_path)
   end
 
-  describe "#file_path" do
+  describe '#file_path' do
     include_context 'with tmp piece on disk'
 
     let(:expected_file_path) do
