@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.6
+
+- Add an Everything::Piece::Content class
+- Add an Everything::Piece::Metadata class
+- Rename piece#content to piece#body
+- Add a piece#content to return the piece's content
+- Add a piece#metadata to return the piece's metadata
+- Add a piece#public? for easily checking the metadata for the `public` boolean
+
 ## 0.0.5
 
 - Increase version number of dotenv dependency
