@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.7
+
+- Add a piece#name to return the name from the piece's path
+
 ## 0.0.6
 
 - Add an Everything::Piece::Content class
