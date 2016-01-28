@@ -21,6 +21,10 @@ module Everything
     def public?
       metadata['public']
     end
+
+    def name
+      File.basename(full_path)
+    end
   end
 end
 

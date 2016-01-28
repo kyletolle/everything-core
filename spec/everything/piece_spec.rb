@@ -1,6 +1,6 @@
 describe Everything::Piece do
   let(:given_full_path) do
-    'some/fake/path/here'
+    'some/fake/path/here-is-our-piece'
   end
   let(:piece) do
     described_class.new(given_full_path)
@@ -60,6 +60,16 @@ describe Everything::Piece do
         .with(given_full_path)
 
       piece.metadata
+    end
+  end
+
+  describe '#name' do
+    let(:expected_name) do
+      'here-is-our-piece'
+    end
+
+    it 'is the last part of the path' do
+      expect(piece.name).to eq(expected_name)
     end
   end
 
