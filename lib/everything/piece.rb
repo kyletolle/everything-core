@@ -12,11 +12,12 @@ module Everything
       @content ||= Content.new(full_path)
     end
 
+    def_delegators :content, :body, :raw_markdown, :title
+
     def metadata
       @metadata ||= Metadata.new(full_path)
     end
 
-    def_delegators :content, :body, :raw_markdown, :title
   end
 end
 
