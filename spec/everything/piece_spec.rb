@@ -49,6 +49,20 @@ describe Everything::Piece do
     end
   end
 
+  describe '#metadata' do
+    it 'is an instance of Metadata' do
+      expect(piece.metadata).to be_a(Everything::Piece::Metadata)
+    end
+
+    it "is created with the piece's full path" do
+      expect(Everything::Piece::Metadata)
+        .to receive(:new)
+        .with(given_full_path)
+
+      piece.metadata
+    end
+  end
+
   describe '#raw_markdown' do
     include_context 'with content double'
 
