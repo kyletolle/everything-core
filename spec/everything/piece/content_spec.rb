@@ -86,8 +86,7 @@ MD
         .to receive(:read)
         .and_call_original
 
-      content.raw_markdown
-      content.raw_markdown
+      2.times { content.raw_markdown }
 
       expect(File)
         .to have_received(:read)
