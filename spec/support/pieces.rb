@@ -1,3 +1,6 @@
+require 'tmpdir'
+require 'fileutils'
+
 RSpec.shared_context 'with tmp piece on disk' do
   let!(:tmp_piece_path) do
     Dir.mktmpdir

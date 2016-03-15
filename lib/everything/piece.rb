@@ -1,3 +1,5 @@
+require 'forwardable'
+
 module Everything
   class Piece
     extend Forwardable
