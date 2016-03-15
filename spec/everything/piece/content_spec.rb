@@ -93,4 +93,22 @@ MD
         .exactly(:once)
     end
   end
+
+  describe '#raw_markdown=' do
+    include_context 'with tmp piece on disk'
+
+    let(:new_raw_markdown) do
+      <<MD
+# New Markdown
+
+This is a completely new bit of markdown.
+MD
+    end
+
+    it 'sets the raw_markdown value' do
+      content.raw_markdown = new_raw_markdown
+
+      expect(content.raw_markdown).to eq(new_raw_markdown)
+    end
+  end
 end

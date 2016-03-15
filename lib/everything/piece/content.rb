@@ -21,6 +21,10 @@ module Everything
         @raw_markdown ||= File.read(file_path)
       end
 
+      def raw_markdown=(value)
+        @raw_markdown = value
+      end
+
     private
       attr_reader :piece_path
 
