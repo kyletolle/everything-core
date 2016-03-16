@@ -21,6 +21,12 @@ module Everything
         @raw_yaml = value
       end
 
+      def save
+        FileUtils.mkdir_p(piece_path)
+
+        File.write(file_path, @raw_yaml)
+      end
+
       def_delegators :raw_yaml, :[]
 
     private

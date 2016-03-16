@@ -107,4 +107,92 @@ YAML
       expect(metadata.raw_yaml).to eq(new_raw_yaml)
     end
   end
+
+  describe '#save' do
+    let(:tmp_dir) do
+      Dir.tmpdir
+    end
+
+    let(:tmp_piece_path) do
+      File.join(tmp_dir, 'fake-piece-here')
+    end
+
+    before do
+      metadata.raw_yaml = <<YAML
+---
+favorite_color: blue
+YAML
+    end
+
+    after do
+      FileUtils.remove_entry(tmp_piece_path)
+    end
+
+    context 'when the piece directory does not exist' do
+      it 'creates the folder' do
+        expect(Dir.exist?(tmp_piece_path)).to eq(false)
+
+        metadata.save
+
+        expect(Dir.exist?(tmp_piece_path)).to eq(true)
+      end
+
+      it 'creates the metadata yaml file' do
+        expect(File.exist?(metadata.file_path)).to eq(false)
+
+        metadata.save
+
+        expect(File.exist?(metadata.file_path)).to eq(true)
+      end
+
+      it 'writes the yaml to the file' do
+        metadata.save
+
+        expect(File.read(metadata.file_path)).to eq(<<YAML)
+---
+favorite_color: blue
+YAML
+      end
+    end
+
+    context 'when the piece directory exists' do
+      before do
+        FileUtils.mkdir_p(tmp_piece_path)
+      end
+
+      context 'when the metadata file does not exist' do
+        it 'creates the metadata yaml file' do
+          expect(File.exist?(metadata.file_path)).to eq(false)
+
+          metadata.save
+
+          expect(File.exist?(metadata.file_path)).to eq(true)
+        end
+
+        it 'writes the yaml to the file' do
+          metadata.save
+
+          expect(File.read(metadata.file_path)).to eq(<<YAML)
+---
+favorite_color: blue
+YAML
+        end
+      end
+
+      context 'when the metadata file already exists' do
+        before do
+          File.write(metadata.file_path, "---\nwho: knows")
+        end
+
+        it 'overwrites the file with the correct yaml' do
+          metadata.save
+
+          expect(File.read(metadata.file_path)).to eq(<<YAML)
+---
+favorite_color: blue
+YAML
+        end
+      end
+    end
+  end
 end
