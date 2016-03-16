@@ -25,6 +25,12 @@ module Everything
         @raw_markdown = value
       end
 
+      def save
+        FileUtils.mkdir_p(piece_path)
+
+        File.write(file_path, @raw_markdown)
+      end
+
     private
       attr_reader :piece_path
 
