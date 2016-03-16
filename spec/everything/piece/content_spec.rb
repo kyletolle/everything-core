@@ -129,9 +129,6 @@ MD
       FileUtils.remove_entry(tmp_piece_path)
     end
 
-    shared_context 'creates the content on disk' do
-    end
-
     context 'when the piece directory does not exist' do
       it 'creates the folder' do
         expect(Dir.exist?(tmp_piece_path)).to eq(false)
