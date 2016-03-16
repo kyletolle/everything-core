@@ -17,6 +17,10 @@ module Everything
         @raw_yaml ||= YAML.load_file(file_path)
       end
 
+      def raw_yaml=(value)
+        @raw_yaml = value
+      end
+
       def_delegators :raw_yaml, :[]
 
     private

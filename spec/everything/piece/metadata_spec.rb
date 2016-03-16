@@ -89,4 +89,22 @@ YAML
         .exactly(:once)
     end
   end
+
+  describe '#raw_yaml=' do
+    include_context 'with tmp piece on disk'
+
+    let(:new_raw_yaml) do
+      <<YAML
+---
+public: true
+other: okay
+YAML
+    end
+
+    it 'sets the raw_yaml value' do
+      metadata.raw_yaml = new_raw_yaml
+
+      expect(metadata.raw_yaml).to eq(new_raw_yaml)
+    end
+  end
 end
