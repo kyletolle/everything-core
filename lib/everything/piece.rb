@@ -29,6 +29,11 @@ module Everything
     def name
       File.basename(full_path)
     end
+
+    def save
+      content.save
+      metadata.save
+    end
   end
 end
 

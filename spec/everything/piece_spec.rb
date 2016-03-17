@@ -168,4 +168,28 @@ describe Everything::Piece do
         .with("---\nanything: works")
     end
   end
+
+  describe '#save' do
+    include_context 'with content double'
+    include_context 'with metadata double'
+
+    before do
+      allow(content_double).to receive(:save)
+      allow(metadata_double).to receive(:save)
+    end
+
+    it 'calls save on the content' do
+      piece.save
+
+      expect(content_double)
+        .to have_received(:save)
+    end
+
+    it 'calls save on the metadata' do
+      piece.save
+
+      expect(metadata_double)
+        .to have_received(:save)
+    end
+  end
 end
