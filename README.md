@@ -22,7 +22,7 @@ Must define these environment variables:
 Add this line to your application's Gemfile:
 
 ```ruby
-gem install everything-core
+gem 'everything-core', require: 'everything'
 ```
 
 And then execute:
@@ -34,6 +34,24 @@ Or install it yourself as:
     $ gem install everything-core
 
 
+## Requiring
+
+You can require it yourself in your code:
+
+```
+require 'everything'
+```
+
+Or, if you use Bundler and list the gem in your Gemfile, you can require all the
+gems from your Gemfile:
+
+```ruby
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+```
+
+
 ## Usage
 
 This assumes you have a `EVERYTHING_PATH` environment variable either set in
@@ -42,7 +60,7 @@ your shell or in dotenv's `.env` file.
 For example, let's assume you have the following folder and file under your
 everything path
 
-```
+```ruby
 your-piece-here/index.md
 
 # Your Piece Here
@@ -54,7 +72,7 @@ The rest of the body of your file...
 To use the piece from IRB, you could do the following to get the piece's title
 and content.
 
-```
+```ruby
 require 'everything'
 
 piece_path = File.join(Everything.path, 'your-piece-here')
@@ -67,8 +85,11 @@ piece['categories'] # Returns the value for the `categories` metadata key
 piece.public?       # Convience method to return the value for the boolean `public` metadata key
 piece.content       # Return an instance of the piece's content
 piece.metadata      # Return an instance of the piece's metadata
+```
 
-# You can also edit a piece's content and metadata
+You can also edit a piece's content and metadata
+
+```ruby
 piece.raw_markdown = some_markdown # Sets the raw_markdown on the piece's content
 piece.raw_yaml     = some_yaml     # Sets the raw_yaml on the piece's metadata
 piece.save                         # Save the piece's content and metadata to disk
