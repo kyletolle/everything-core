@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Everything
   class Piece
     class Content
