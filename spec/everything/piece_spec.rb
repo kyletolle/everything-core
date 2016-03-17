@@ -5,6 +5,7 @@ describe Everything::Piece do
   let(:piece) do
     described_class.new(given_full_path)
   end
+
   shared_context 'with content double' do
     let(:content_double) do
       instance_double(Everything::Piece::Content)
@@ -101,6 +102,20 @@ describe Everything::Piece do
       piece.raw_markdown
 
       expect(content_double).to have_received(:raw_markdown)
+    end
+  end
+
+  describe '#raw_markdown=' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:raw_markdown=)
+
+      piece.raw_markdown=("# Test markdown")
+
+      expect(content_double)
+        .to have_received(:raw_markdown=)
+        .with("# Test markdown")
     end
   end
 
