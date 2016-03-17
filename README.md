@@ -67,6 +67,11 @@ piece['categories'] # Returns the value for the `categories` metadata key
 piece.public?       # Convience method to return the value for the boolean `public` metadata key
 piece.content       # Return an instance of the piece's content
 piece.metadata      # Return an instance of the piece's metadata
+
+# You can also edit a piece's content and metadata
+piece.raw_markdown = some_markdown # Sets the raw_markdown on the piece's content
+piece.raw_yaml     = some_yaml     # Sets the raw_yaml on the piece's metadata
+piece.save                         # Save the piece's content and metadata to disk
 ```
 
 
