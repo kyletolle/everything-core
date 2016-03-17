@@ -18,6 +18,18 @@ describe Everything::Piece do
     end
   end
 
+  shared_context 'with metadata double' do
+    let(:metadata_double) do
+      instance_double(Everything::Piece::Metadata)
+    end
+
+    before do
+      allow(Everything::Piece::Metadata)
+        .to receive(:new)
+        .and_return(metadata_double)
+    end
+  end
+
   describe '#body' do
     include_context 'with content double'
 
@@ -128,6 +140,32 @@ describe Everything::Piece do
       piece.title
 
       expect(content_double).to have_received(:title)
+    end
+  end
+
+  describe '#raw_yaml' do
+    include_context 'with metadata double'
+
+    it 'delegates to the metadata' do
+      allow(metadata_double).to receive(:raw_yaml)
+
+      piece.raw_yaml
+
+      expect(metadata_double).to have_received(:raw_yaml)
+    end
+  end
+
+  describe '#raw_yaml=' do
+    include_context 'with metadata double'
+
+    it 'delegates to the metadata' do
+      allow(metadata_double).to receive(:raw_yaml=)
+
+      piece.raw_yaml=("---\nanything: works")
+
+      expect(metadata_double)
+        .to have_received(:raw_yaml=)
+        .with("---\nanything: works")
     end
   end
 end

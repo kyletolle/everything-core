@@ -24,6 +24,8 @@ module Everything
       metadata['public']
     end
 
+    def_delegators :metadata, :raw_yaml, :raw_yaml=
+
     def name
       File.basename(full_path)
     end
