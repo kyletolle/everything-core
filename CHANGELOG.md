@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.8
+
+- Require modules which had been used but not explicitly required
+- Add #raw_markdown=, #save to Content
+- Add #raw_yaml=, #save to Metadata
+- Add #raw_markdown=, #raw_yaml, #raw_yaml=, #save to Piece
+
 ## 0.0.7
 
 - Add a piece#name to return the name from the piece's path
