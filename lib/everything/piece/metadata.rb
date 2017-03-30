@@ -6,6 +6,11 @@ module Everything
     class Metadata
       extend Forwardable
 
+      # TODO: Need to add some ways in here to save the metadata file once it's
+      # been edited.
+      # TODO: Also add a #to_s or #inspect methods to render the raw_yaml
+      # TODO: Also add a #[]= here that delegates to raw_yaml as well.
+
       def initialize(piece_path)
         @piece_path = piece_path
       end
