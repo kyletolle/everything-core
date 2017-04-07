@@ -27,6 +27,18 @@ MD
     described_class.new(tmp_piece_path)
   end
 
+  describe '#file_name' do
+    include_context 'with tmp piece on disk'
+
+    let(:expected_file_name) do
+      'index.md'
+    end
+
+    it 'is the markdown file according to everything convention' do
+      expect(content.file_name).to eq(expected_file_name)
+    end
+  end
+
   describe '#file_path' do
     include_context 'with tmp piece on disk'
 
