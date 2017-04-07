@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.9
+
+- Make Content#file_name a public method
+
 ## 0.0.8
 
 - Require modules which had been used but not explicitly required
