@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.11
+
+- Update changelog for 0.0.10 changes
+- Update travis settings to use ruby 2.7.1 and bundler 2
+
+## 0.0.10
+
+- Upgrade to Bundler v2
+
 ## 0.0.9
 
 - Make Content#file_name a public method
