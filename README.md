@@ -102,11 +102,22 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run
 `rake spec` to run the tests. You can also run `bin/console` for an interactive
 prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `rake install`. To release
-a new version, update the version number in `lib/everything/version.rb`, and
-commit the version file change. Then you can create a build with `rake build`.
-Then run `rake release`, which will create a git tag for the
-version, push git commits and tags, and push the `.gem` file to
+To install this gem onto your local machine, run `rake install`.
+
+To release a new version,
+- check out a new branch
+- make your code changes
+- update the version number in `lib/everything/version.rb`
+- update the `CHANGELOG.md` with what changed.
+- commit your code changes
+- push new branch to github with `git push -u origin HEAD`
+- create a new PR for this
+- merge in PR to master
+- locally, check out master again
+- git pull
+- create a build with `rake build`
+- run `rake release`, which will create a git tag for the version,
+push git commits and tags, and push the `.gem` file to
 [rubygems.org](https://rubygems.org).
 
 
