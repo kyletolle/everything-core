@@ -2,6 +2,7 @@ require 'logger'
 require_relative 'logger/base'
 require_relative 'logger/debug'
 require_relative 'logger/error'
+require_relative 'logger/verbose'
 
 module Everything
   def self.logger
