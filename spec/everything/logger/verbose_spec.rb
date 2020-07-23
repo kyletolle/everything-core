@@ -58,7 +58,7 @@ describe Everything::Logger::Verbose do
   end
 
   describe '#info' do
-    it 'logs just the datetime and the message' do
+    it 'logs the datetime, the progname, and the message' do
       Timecop.freeze(DateTime.parse('2019-07-05 12:12:12 -0600')) do
         logger.info('Specs') { "Important message" }
 
