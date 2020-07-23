@@ -3,6 +3,7 @@ Dotenv.load
 
 require 'fastenv'
 require 'everything/version'
+require 'everything/logger'
 require 'everything/piece'
 
 module Everything
