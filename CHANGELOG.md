@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.12
+
+- Add an Everything logger
+- Add a Debug logger
+- Add a Verbose logger
+- Add an Error logger
+- Add a LogIt module to make logging easy
+
 ## 0.0.11
 
 - Update changelog for 0.0.10 changes
