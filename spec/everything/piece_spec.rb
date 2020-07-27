@@ -62,12 +62,11 @@ describe Everything::Piece do
   end
 
   describe '#dir' do
-
-    let(:piece_path_relative_to_everything_path) do
+    let(:piece_dir_relative_to_everything_path) do
       'here-is-our-piece'
     end
     it "returns the piece's path relative to everything path" do
-      expect(piece.dir).to eq(piece_path_relative_to_everything_path)
+      expect(piece.dir).to eq(piece_dir_relative_to_everything_path)
     end
 
     it 'memoizes the value' do
@@ -104,6 +103,28 @@ describe Everything::Piece do
 
     it 'is the last part of the path' do
       expect(piece.name).to eq(expected_name)
+    end
+
+    it 'memoizes the value' do
+      first_name_value = piece.name
+      second_name_value = piece.name
+      expect(first_name_value.object_id).to eq(second_name_value.object_id)
+    end
+  end
+
+  describe '#path' do
+    let(:piece_path_relative_to_everything_path) do
+      'here-is-our-piece/index.md'
+    end
+
+    it "returns the piece's path relative to everything path" do
+      expect(piece.path).to eq(piece_path_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_path_value = piece.path
+      second_path_value = piece.path
+      expect(first_path_value.object_id).to eq(second_path_value.object_id)
     end
   end
 

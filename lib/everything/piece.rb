@@ -37,7 +37,11 @@ module Everything
     def_delegators :metadata, :raw_yaml, :raw_yaml=
 
     def name
-      File.basename(full_path)
+      @name ||= File.basename(full_path)
+    end
+
+    def path
+      @path ||= File.join(dir, content.file_name)
     end
 
     def save
