@@ -24,7 +24,8 @@ module Everything
       @dir ||= calculated_dir
     end
 
-    def_delegators :content, :body, :raw_markdown, :raw_markdown=, :title
+
+    def_delegators :content, :body, :file_name, :raw_markdown, :raw_markdown=, :title
 
     def metadata
       @metadata ||= Metadata.new(full_path)

@@ -76,6 +76,18 @@ describe Everything::Piece do
     end
   end
 
+  describe '#file_name' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:file_name)
+
+      piece.file_name
+
+      expect(content_double).to have_received(:file_name)
+    end
+  end
+
   describe '#full_path' do
     it "returns the piece's full path" do
       expect(piece.full_path).to eq(given_full_path)
