@@ -1,6 +1,11 @@
 describe Everything::Piece do
+  include_context 'with fake everything path env var'
+
+  let(:given_piece_name) do
+    'here-is-our-piece'
+  end
   let(:given_full_path) do
-    'some/fake/path/here-is-our-piece'
+    File.join(Everything.path, given_piece_name)
   end
   let(:piece) do
     described_class.new(given_full_path)
@@ -53,6 +58,22 @@ describe Everything::Piece do
         .with(given_full_path)
 
       piece.content
+    end
+  end
+
+  describe '#dir' do
+
+    let(:piece_path_relative_to_everything_path) do
+      'here-is-our-piece'
+    end
+    it "returns the piece's path relative to everything path" do
+      expect(piece.dir).to eq(piece_path_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_dir_value = piece.dir
+      second_dir_value = piece.dir
+      expect(first_dir_value.object_id).to eq(second_dir_value.object_id)
     end
   end
 

@@ -7,7 +7,7 @@ describe Everything do
     include_context 'with fake everything path env var'
 
     let(:expected_path) do
-      '/some/path/to/your/everything/repo/'
+      fake_everything_path
     end
 
     it 'is a pathname' do
