@@ -46,6 +46,21 @@ describe Everything::Piece::Metadata do
     end
   end
 
+  describe '#absolute_path' do
+    let(:metadata_absolute_path) do
+      '/fake/everything/path/grond-crawled-on/index.yaml'
+    end
+    it "returns the metadata's absolute path" do
+      expect(metadata.absolute_path).to eq(metadata_absolute_path)
+    end
+
+    it 'memoizes the value' do
+      first_call_result = metadata.absolute_path
+      second_call_result = metadata.absolute_path
+      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    end
+  end
+
   describe '#dir' do
     include_context 'with fake piece metadata'
 
