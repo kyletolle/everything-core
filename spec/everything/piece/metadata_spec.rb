@@ -32,6 +32,8 @@ describe Everything::Piece::Metadata do
   end
 
   describe '#absolute_dir' do
+    include_context 'with fake piece metadata'
+
     let(:metadata_absolute_dir) do
       '/fake/everything/path/grond-crawled-on'
     end
@@ -47,6 +49,8 @@ describe Everything::Piece::Metadata do
   end
 
   describe '#absolute_path' do
+    include_context 'with fake piece metadata'
+
     let(:metadata_absolute_path) do
       '/fake/everything/path/grond-crawled-on/index.yaml'
     end
