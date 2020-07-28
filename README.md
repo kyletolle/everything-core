@@ -75,7 +75,7 @@ and content.
 ```ruby
 require 'everything'
 
-piece_path = File.join(Everything.path, 'your-piece-here')
+piece_path = Everything.path.join('your-piece-here')
 piece      = Everything::Piece.new(piece_path)
 
 piece.name          # => 'your-piece-here'
