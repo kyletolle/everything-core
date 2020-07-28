@@ -71,6 +71,22 @@ MD
     end
   end
 
+  xdescribe '#path' do
+    let(:content_path_relative_to_everything_path) do
+      'grond-crawled-on/index.md'
+    end
+
+    it "returns the content's path relative to everything path" do
+      expect(content.path).to eq(content_path_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_path_value = content.path
+      second_path_value = content.path
+      expect(first_path_value.object_id).to eq(second_path_value.object_id)
+    end
+  end
+
   describe '#raw_markdown' do
     include_context 'with fake piece content'
 

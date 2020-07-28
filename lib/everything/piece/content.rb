@@ -27,6 +27,10 @@ module Everything
         partitioned_text.last
       end
 
+      def path
+        @path ||= File.join(dir, file_name)
+      end
+
       def raw_markdown
         @raw_markdown ||= File.read(file_path)
       end

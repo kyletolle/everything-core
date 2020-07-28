@@ -1,14 +1,9 @@
 describe Everything::Piece do
   include_context 'with fake everything path env var'
+  include_context 'with fake piece'
 
-  let(:given_piece_name) do
-    'here-is-our-piece'
-  end
-  let(:given_full_path) do
-    File.join(Everything.path, given_piece_name)
-  end
   let(:piece) do
-    described_class.new(given_full_path)
+    described_class.new(fake_piece_path)
   end
 
   shared_context 'with content double' do
@@ -37,7 +32,7 @@ describe Everything::Piece do
 
   describe '#absolute_dir' do
     let(:piece_absolute_dir) do
-      '/fake/everything/path/here-is-our-piece'
+      '/fake/everything/path/grond-crawled-on'
     end
     it "returns the piece's absolute path" do
       expect(piece.absolute_dir).to eq(piece_absolute_dir)
@@ -52,7 +47,7 @@ describe Everything::Piece do
 
   describe '#absolute_path' do
     let(:piece_absolute_path) do
-      '/fake/everything/path/here-is-our-piece/index.md'
+      '/fake/everything/path/grond-crawled-on/index.md'
     end
     it "returns the piece's absolute path" do
       expect(piece.absolute_path).to eq(piece_absolute_path)
@@ -85,15 +80,16 @@ describe Everything::Piece do
     it "is created with the piece's full path" do
       expect(Everything::Piece::Content)
         .to receive(:new)
-        .with(given_full_path)
+        .with(fake_piece_path)
 
       piece.content
     end
   end
 
   describe '#dir' do
+    # TODO: This should just delegate to content...
     let(:piece_dir_relative_to_everything_path) do
-      'here-is-our-piece'
+      'grond-crawled-on'
     end
     it "returns the piece's path relative to everything path" do
       expect(piece.dir).to eq(piece_dir_relative_to_everything_path)
@@ -120,7 +116,7 @@ describe Everything::Piece do
 
   describe '#full_path' do
     it "returns the piece's full path" do
-      expect(piece.full_path).to eq(given_full_path)
+      expect(piece.full_path).to eq(fake_piece_path)
     end
   end
 
@@ -132,7 +128,7 @@ describe Everything::Piece do
     it "is created with the piece's full path" do
       expect(Everything::Piece::Metadata)
         .to receive(:new)
-        .with(given_full_path)
+        .with(fake_piece_path)
 
       piece.metadata
     end
@@ -140,7 +136,7 @@ describe Everything::Piece do
 
   describe '#name' do
     let(:expected_name) do
-      'here-is-our-piece'
+      'grond-crawled-on'
     end
 
     it 'is the last part of the path' do
@@ -156,7 +152,7 @@ describe Everything::Piece do
 
   describe '#path' do
     let(:piece_path_relative_to_everything_path) do
-      'here-is-our-piece/index.md'
+      'grond-crawled-on/index.md'
     end
 
     it "returns the piece's path relative to everything path" do
