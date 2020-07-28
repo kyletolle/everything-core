@@ -8,6 +8,21 @@ describe Everything::Piece::Content do
     described_class.new(fake_piece_path)
   end
 
+  describe '#absolute_dir' do
+    let(:content_absolute_dir) do
+      '/fake/everything/path/grond-crawled-on'
+    end
+    it "returns the content's absolute path" do
+      expect(content.absolute_dir).to eq(content_absolute_dir)
+    end
+
+    it 'memoizes the value' do
+      first_call_result = content.absolute_dir
+      second_call_result = content.absolute_dir
+      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    end
+  end
+
   describe '#dir' do
     let(:content_dir_relative_to_everything_path) do
       'grond-crawled-on'

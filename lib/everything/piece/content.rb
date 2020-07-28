@@ -7,6 +7,10 @@ module Everything
         @piece_path = piece_path
       end
 
+      def absolute_dir
+        @absolute_dir ||= File.join(Everything.path, dir)
+      end
+
       def dir
         @dir ||= calculated_dir
       end
