@@ -101,7 +101,7 @@ MD
     end
   end
 
-  xdescribe '#path' do
+  describe '#path' do
     let(:content_path_relative_to_everything_path) do
       'grond-crawled-on/index.md'
     end
