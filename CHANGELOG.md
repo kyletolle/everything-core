@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.13
+
+- *BREAKING CHANGE*: Make Everything.path an instance of Pathname
+- Add #absolute_dir, #absolute_path, #dir, #path to Everything::Piece
+- Add #absolute_dir, #absolute_path, #dir, #path to Everything::Piece::Content
+- Add #absolute_dir, #absolute_path, #dir, #path to Everything::Piece::Metadata
+- Deprecate #file_path on Everything::Piece::Content and Everything::Piece::Metadata
+
 ## 0.0.12
 
 - Add an Everything logger
