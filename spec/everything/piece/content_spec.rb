@@ -8,6 +8,21 @@ describe Everything::Piece::Content do
     described_class.new(fake_piece_path)
   end
 
+  describe '#dir' do
+    let(:content_dir_relative_to_everything_path) do
+      'grond-crawled-on'
+    end
+    it "returns the content's path relative to everything path" do
+      expect(content.dir).to eq(content_dir_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_dir_value = content.dir
+      second_dir_value = content.dir
+      expect(first_dir_value.object_id).to eq(second_dir_value.object_id)
+    end
+  end
+
   describe '#file_name' do
     let(:expected_file_name) do
       'index.md'

@@ -7,6 +7,10 @@ module Everything
         @piece_path = piece_path
       end
 
+      def dir
+        @dir ||= calculated_dir
+      end
+
       def file_name
         'index.md'
       end
@@ -42,6 +46,13 @@ module Everything
 
       def partitioned_text
         @partitioned_text ||= raw_markdown.partition("\n\n")
+      end
+
+      def calculated_dir
+        everything_pathname = Pathname.new(Everything.path)
+        full_pathname = Pathname.new(piece_path)
+        relative_pathname = full_pathname.relative_path_from(everything_pathname)
+        relative_pathname.to_s
       end
     end
   end

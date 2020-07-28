@@ -4,8 +4,11 @@ require 'fileutils'
 RSpec.shared_context 'with fake piece' do
   include_context 'with fake everything path'
 
+  let(:given_piece_name) do
+    'grond-crawled-on'
+  end
   let(:fake_piece_path) do
-    File.join(Everything.path, 'fake-piece')
+    File.join(Everything.path, given_piece_name)
   end
 
   before do
@@ -59,3 +62,4 @@ YAML
 
   # File will get cleaned up by fake everything path
 end
+
