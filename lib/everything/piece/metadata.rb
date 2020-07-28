@@ -49,7 +49,7 @@ module Everything
       def save
         FileUtils.mkdir_p(piece_path)
 
-        File.write(absolute_path, @raw_yaml)
+        absolute_path.write(@raw_yaml)
       end
 
       def_delegators :raw_yaml, :[]

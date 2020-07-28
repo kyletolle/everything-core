@@ -43,7 +43,7 @@ module Everything
       end
 
       def raw_markdown
-        @raw_markdown ||= File.read(absolute_path)
+        @raw_markdown ||= absolute_path.read
       end
 
       def raw_markdown=(value)
@@ -53,7 +53,7 @@ module Everything
       def save
         FileUtils.mkdir_p(piece_path)
 
-        File.write(absolute_path, @raw_markdown)
+        absolute_path.write(@raw_markdown)
       end
 
     private

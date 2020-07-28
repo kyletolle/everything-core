@@ -184,25 +184,25 @@ YAML
       end
 
       it 'creates the folder' do
-        expect(Dir.exist?(fake_piece_path)).to eq(false)
+        expect(fake_piece_path).not_to exist
 
         metadata.save
 
-        expect(Dir.exist?(fake_piece_path)).to eq(true)
+        expect(fake_piece_path).to exist
       end
 
       it 'creates the metadata yaml file' do
-        expect(File.exist?(metadata.absolute_path)).to eq(false)
+        expect(metadata.absolute_path).not_to exist
 
         metadata.save
 
-        expect(File.exist?(metadata.absolute_path)).to eq(true)
+        expect(metadata.absolute_path).to exist
       end
 
       it 'writes the yaml to the file' do
         metadata.save
 
-        expect(File.read(metadata.absolute_path)).to eq(<<YAML)
+        expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -212,17 +212,17 @@ YAML
     context 'when the piece directory exists' do
       context 'when the metadata file does not exist' do
         it 'creates the metadata yaml file' do
-          expect(File.exist?(metadata.absolute_path)).to eq(false)
+          expect(metadata.absolute_path).not_to exist
 
           metadata.save
 
-          expect(File.exist?(metadata.absolute_path)).to eq(true)
+          expect(metadata.absolute_path).to exist
         end
 
         it 'writes the yaml to the file' do
           metadata.save
 
-          expect(File.read(metadata.absolute_path)).to eq(<<YAML)
+          expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -231,13 +231,13 @@ YAML
 
       context 'when the metadata file already exists' do
         before do
-          File.write(metadata.absolute_path, "---\nwho: knows")
+          metadata.absolute_path.write("---\nwho: knows")
         end
 
         it 'overwrites the file with the correct yaml' do
           metadata.save
 
-          expect(File.read(metadata.absolute_path)).to eq(<<YAML)
+          expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
