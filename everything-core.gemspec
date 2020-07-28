@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '>= 13.0.1'
   spec.add_development_dependency 'rspec', '~> 3.9'
   spec.add_development_dependency 'timecop', '~> 0.9'
-  spec.add_development_dependency 'fakefs'
+  spec.add_development_dependency 'fakefs', '~> 1.2.2'
 end
 
