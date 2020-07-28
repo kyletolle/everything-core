@@ -37,6 +37,7 @@ describe Everything::Piece::Metadata do
     let(:metadata_absolute_dir) do
       Pathname.new('/fake/everything/path/grond-crawled-on')
     end
+
     it "returns the metadata's absolute path" do
       expect(metadata.absolute_dir).to eq(metadata_absolute_dir)
     end
@@ -54,6 +55,7 @@ describe Everything::Piece::Metadata do
     let(:metadata_absolute_path) do
       Pathname.new('/fake/everything/path/grond-crawled-on/index.yaml')
     end
+
     it "returns the metadata's absolute path" do
       expect(metadata.absolute_path).to eq(metadata_absolute_path)
     end
@@ -71,6 +73,7 @@ describe Everything::Piece::Metadata do
     let(:metadata_dir_relative_to_everything_path) do
       Pathname.new('grond-crawled-on')
     end
+
     it "returns the metadata's path relative to everything path" do
       expect(metadata.dir).to eq(metadata_dir_relative_to_everything_path)
     end
@@ -243,3 +246,4 @@ YAML
     end
   end
 end
+
