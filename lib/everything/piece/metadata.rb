@@ -23,6 +23,10 @@ module Everything
         @file_path ||= File.join(piece_path, file_name)
       end
 
+      def path
+        @path ||= File.join(dir, file_name)
+      end
+
       def raw_yaml
         @raw_yaml ||= YAML.load_file(file_path)
       end

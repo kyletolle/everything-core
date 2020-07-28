@@ -60,6 +60,24 @@ describe Everything::Piece::Metadata do
     end
   end
 
+  describe '#path' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_path_relative_to_everything_path) do
+      'grond-crawled-on/index.yaml'
+    end
+
+    it "returns the metadata's path relative to everything path" do
+      expect(metadata.path).to eq(metadata_path_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_path_value = metadata.path
+      second_path_value = metadata.path
+      expect(first_path_value.object_id).to eq(second_path_value.object_id)
+    end
+  end
+
   describe '#raw_yaml' do
     include_context 'with fake piece metadata'
 
