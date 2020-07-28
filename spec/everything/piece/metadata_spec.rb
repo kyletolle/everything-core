@@ -189,17 +189,17 @@ YAML
       end
 
       it 'creates the metadata yaml file' do
-        expect(File.exist?(metadata.file_path)).to eq(false)
+        expect(File.exist?(metadata.absolute_path)).to eq(false)
 
         metadata.save
 
-        expect(File.exist?(metadata.file_path)).to eq(true)
+        expect(File.exist?(metadata.absolute_path)).to eq(true)
       end
 
       it 'writes the yaml to the file' do
         metadata.save
 
-        expect(File.read(metadata.file_path)).to eq(<<YAML)
+        expect(File.read(metadata.absolute_path)).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -209,17 +209,17 @@ YAML
     context 'when the piece directory exists' do
       context 'when the metadata file does not exist' do
         it 'creates the metadata yaml file' do
-          expect(File.exist?(metadata.file_path)).to eq(false)
+          expect(File.exist?(metadata.absolute_path)).to eq(false)
 
           metadata.save
 
-          expect(File.exist?(metadata.file_path)).to eq(true)
+          expect(File.exist?(metadata.absolute_path)).to eq(true)
         end
 
         it 'writes the yaml to the file' do
           metadata.save
 
-          expect(File.read(metadata.file_path)).to eq(<<YAML)
+          expect(File.read(metadata.absolute_path)).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -228,13 +228,13 @@ YAML
 
       context 'when the metadata file already exists' do
         before do
-          File.write(metadata.file_path, "---\nwho: knows")
+          File.write(metadata.absolute_path, "---\nwho: knows")
         end
 
         it 'overwrites the file with the correct yaml' do
           metadata.save
 
-          expect(File.read(metadata.file_path)).to eq(<<YAML)
+          expect(File.read(metadata.absolute_path)).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML

@@ -184,46 +184,46 @@ MD
       end
 
       it 'creates the content markdown file' do
-        expect(File.exist?(content.file_path)).to eq(false)
+        expect(File.exist?(content.absolute_path)).to eq(false)
 
         content.save
 
-        expect(File.exist?(content.file_path)).to eq(true)
+        expect(File.exist?(content.absolute_path)).to eq(true)
       end
 
       it 'writes the markdown to the file' do
         content.save
 
-        expect(File.read(content.file_path)).to eq('# Ship Shape')
+        expect(File.read(content.absolute_path)).to eq('# Ship Shape')
       end
     end
 
     context 'when the piece directory exists' do
       context 'when the content file does not exist' do
         it 'creates the content markdown file' do
-          expect(File.exist?(content.file_path)).to eq(false)
+          expect(File.exist?(content.absolute_path)).to eq(false)
 
           content.save
 
-          expect(File.exist?(content.file_path)).to eq(true)
+          expect(File.exist?(content.absolute_path)).to eq(true)
         end
 
         it 'writes the markdown to the file' do
           content.save
 
-          expect(File.read(content.file_path)).to eq('# Ship Shape')
+          expect(File.read(content.absolute_path)).to eq('# Ship Shape')
         end
       end
 
       context 'when the content file already exists' do
         before do
-          File.write(content.file_path, '# Rolly Polly')
+          File.write(content.absolute_path, '# Rolly Polly')
         end
 
         it 'overwrites the file with the correct markdown' do
           content.save
 
-          expect(File.read(content.file_path)).to eq('# Ship Shape')
+          expect(File.read(content.absolute_path)).to eq('# Ship Shape')
         end
       end
     end
