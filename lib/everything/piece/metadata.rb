@@ -28,6 +28,9 @@ module Everything
       end
 
       def file_path
+        # TODO: Could try a deprecation approach like http://seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
+        deprecation_message = "Piece Metadata's #file_path is deprecated and will be removed soon. Use #absolute_path instead."
+        warn deprecation_message
         @file_path ||= File.join(piece_path, file_name)
       end
 
