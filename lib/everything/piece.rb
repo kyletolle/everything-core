@@ -14,7 +14,7 @@ module Everything
       @content ||= Content.new(full_path)
     end
 
-    def_delegators :content, :body, :raw_markdown, :raw_markdown=, :title
+    def_delegators :content, :absolute_dir, :absolute_path, :body, :dir, :file_name, :path, :raw_markdown, :raw_markdown=, :title
 
     def metadata
       @metadata ||= Metadata.new(full_path)
@@ -27,7 +27,7 @@ module Everything
     def_delegators :metadata, :raw_yaml, :raw_yaml=
 
     def name
-      File.basename(full_path)
+      @name ||= File.basename(full_path)
     end
 
     def save

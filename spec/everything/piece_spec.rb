@@ -1,9 +1,9 @@
 describe Everything::Piece do
-  let(:given_full_path) do
-    'some/fake/path/here-is-our-piece'
-  end
+  include_context 'with fake everything path env var'
+  include_context 'with fake piece'
+
   let(:piece) do
-    described_class.new(given_full_path)
+    described_class.new(fake_piece_path)
   end
 
   shared_context 'with content double' do
@@ -30,6 +30,30 @@ describe Everything::Piece do
     end
   end
 
+  describe '#absolute_dir' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:absolute_dir)
+
+      piece.absolute_dir
+
+      expect(content_double).to have_received(:absolute_dir)
+    end
+  end
+
+  describe '#absolute_path' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:absolute_path)
+
+      piece.absolute_path
+
+      expect(content_double).to have_received(:absolute_path)
+    end
+  end
+
   describe '#body' do
     include_context 'with content double'
 
@@ -50,15 +74,39 @@ describe Everything::Piece do
     it "is created with the piece's full path" do
       expect(Everything::Piece::Content)
         .to receive(:new)
-        .with(given_full_path)
+        .with(fake_piece_path)
 
       piece.content
     end
   end
 
+  describe '#dir' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:dir)
+
+      piece.dir
+
+      expect(content_double).to have_received(:dir)
+    end
+  end
+
+  describe '#file_name' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:file_name)
+
+      piece.file_name
+
+      expect(content_double).to have_received(:file_name)
+    end
+  end
+
   describe '#full_path' do
     it "returns the piece's full path" do
-      expect(piece.full_path).to eq(given_full_path)
+      expect(piece.full_path).to eq(fake_piece_path)
     end
   end
 
@@ -70,7 +118,7 @@ describe Everything::Piece do
     it "is created with the piece's full path" do
       expect(Everything::Piece::Metadata)
         .to receive(:new)
-        .with(given_full_path)
+        .with(fake_piece_path)
 
       piece.metadata
     end
@@ -78,11 +126,29 @@ describe Everything::Piece do
 
   describe '#name' do
     let(:expected_name) do
-      'here-is-our-piece'
+      'grond-crawled-on'
     end
 
     it 'is the last part of the path' do
       expect(piece.name).to eq(expected_name)
+    end
+
+    it 'memoizes the value' do
+      first_name_value = piece.name
+      second_name_value = piece.name
+      expect(first_name_value.object_id).to eq(second_name_value.object_id)
+    end
+  end
+
+  describe '#path' do
+    include_context 'with content double'
+
+    it 'delegates to the content' do
+      allow(content_double).to receive(:path)
+
+      piece.path
+
+      expect(content_double).to have_received(:path)
     end
   end
 
@@ -193,3 +259,4 @@ describe Everything::Piece do
     end
   end
 end
+

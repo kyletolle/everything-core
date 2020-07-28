@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.13
+
+- **BREAKING CHANGE**: Make Everything.path an instance of Pathname
+- Add #absolute_dir, #absolute_path, #dir, #file_name, #path to Everything::Piece
+- Memoize Everything::Piece#name
+- Add #absolute_dir, #absolute_path, #dir, #path to Everything::Piece::Content
+- Add #absolute_dir, #absolute_path, #dir, #path to Everything::Piece::Metadata
+- Deprecate #file_path on Everything::Piece::Content and Everything::Piece::Metadata
+- Use Pathname convenience methods when working with files and paths internally
+
 ## 0.0.12
 
 - Add an Everything logger

@@ -1,31 +1,12 @@
 require './spec/support/pieces'
 
 describe Everything::Piece::Metadata do
-  shared_context 'with tmp piece metadata file on disk' do
-    let(:tmp_piece_metadata_path) do
-      File.join(tmp_piece_path, 'index.yaml')
-    end
-
-    let(:given_yaml) do
-      <<YAML
----
-public: false
-YAML
-    end
-
-    before do
-      File.open(tmp_piece_metadata_path, 'w') do |metadata_file|
-        metadata_file.puts given_yaml
-      end
-    end
-  end
-
   let(:metadata) do
-    described_class.new(tmp_piece_path)
+    described_class.new(fake_piece_path)
   end
 
   describe '#[]' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:yaml_double) do
       instance_double(Hash)
@@ -50,11 +31,65 @@ YAML
     end
   end
 
+  describe '#absolute_dir' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_absolute_dir) do
+      Pathname.new('/fake/everything/path/grond-crawled-on')
+    end
+
+    it "returns the metadata's absolute path" do
+      expect(metadata.absolute_dir).to eq(metadata_absolute_dir)
+    end
+
+    it 'memoizes the value' do
+      first_call_result = metadata.absolute_dir
+      second_call_result = metadata.absolute_dir
+      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    end
+  end
+
+  describe '#absolute_path' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_absolute_path) do
+      Pathname.new('/fake/everything/path/grond-crawled-on/index.yaml')
+    end
+
+    it "returns the metadata's absolute path" do
+      expect(metadata.absolute_path).to eq(metadata_absolute_path)
+    end
+
+    it 'memoizes the value' do
+      first_call_result = metadata.absolute_path
+      second_call_result = metadata.absolute_path
+      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    end
+  end
+
+  describe '#dir' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_dir_relative_to_everything_path) do
+      Pathname.new('grond-crawled-on')
+    end
+
+    it "returns the metadata's path relative to everything path" do
+      expect(metadata.dir).to eq(metadata_dir_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_dir_value = metadata.dir
+      second_dir_value = metadata.dir
+      expect(first_dir_value.object_id).to eq(second_dir_value.object_id)
+    end
+  end
+
   describe '#file_path' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:expected_file_path) do
-      "#{tmp_piece_path}/index.yaml"
+      "#{fake_piece_path}/index.yaml"
     end
 
     it 'is the index.yaml under the piece' do
@@ -62,9 +97,26 @@ YAML
     end
   end
 
+  describe '#path' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_path_relative_to_everything_path) do
+      Pathname.new('grond-crawled-on/index.yaml')
+    end
+
+    it "returns the metadata's path relative to everything path" do
+      expect(metadata.path).to eq(metadata_path_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_path_value = metadata.path
+      second_path_value = metadata.path
+      expect(first_path_value.object_id).to eq(second_path_value.object_id)
+    end
+  end
+
   describe '#raw_yaml' do
-    include_context 'with tmp piece on disk'
-    include_context 'with tmp piece metadata file on disk'
+    include_context 'with fake piece metadata'
 
     let(:expected_raw_yaml) do
       {
@@ -91,7 +143,7 @@ YAML
   end
 
   describe '#raw_yaml=' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:new_raw_yaml) do
       <<YAML
@@ -109,15 +161,11 @@ YAML
   end
 
   describe '#save' do
-    let(:tmp_dir) do
-      Dir.tmpdir
-    end
-
-    let(:tmp_piece_path) do
-      File.join(tmp_dir, 'fake-piece-here')
-    end
+    include_context 'with fake piece'
 
     before do
+      FakeFS.activate!
+
       metadata.raw_yaml = <<YAML
 ---
 favorite_color: blue
@@ -125,30 +173,36 @@ YAML
     end
 
     after do
-      FileUtils.remove_entry(tmp_piece_path)
+      FileUtils.rm_rf(fake_piece_path)
+
+      FakeFS.deactivate!
     end
 
     context 'when the piece directory does not exist' do
+      before do
+        FileUtils.rm_rf(fake_piece_path)
+      end
+
       it 'creates the folder' do
-        expect(Dir.exist?(tmp_piece_path)).to eq(false)
+        expect(fake_piece_path).not_to exist
 
         metadata.save
 
-        expect(Dir.exist?(tmp_piece_path)).to eq(true)
+        expect(fake_piece_path).to exist
       end
 
       it 'creates the metadata yaml file' do
-        expect(File.exist?(metadata.file_path)).to eq(false)
+        expect(metadata.absolute_path).not_to exist
 
         metadata.save
 
-        expect(File.exist?(metadata.file_path)).to eq(true)
+        expect(metadata.absolute_path).to exist
       end
 
       it 'writes the yaml to the file' do
         metadata.save
 
-        expect(File.read(metadata.file_path)).to eq(<<YAML)
+        expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -156,23 +210,19 @@ YAML
     end
 
     context 'when the piece directory exists' do
-      before do
-        FileUtils.mkdir_p(tmp_piece_path)
-      end
-
       context 'when the metadata file does not exist' do
         it 'creates the metadata yaml file' do
-          expect(File.exist?(metadata.file_path)).to eq(false)
+          expect(metadata.absolute_path).not_to exist
 
           metadata.save
 
-          expect(File.exist?(metadata.file_path)).to eq(true)
+          expect(metadata.absolute_path).to exist
         end
 
         it 'writes the yaml to the file' do
           metadata.save
 
-          expect(File.read(metadata.file_path)).to eq(<<YAML)
+          expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -181,13 +231,13 @@ YAML
 
       context 'when the metadata file already exists' do
         before do
-          File.write(metadata.file_path, "---\nwho: knows")
+          metadata.absolute_path.write("---\nwho: knows")
         end
 
         it 'overwrites the file with the correct yaml' do
           metadata.save
 
-          expect(File.read(metadata.file_path)).to eq(<<YAML)
+          expect(metadata.absolute_path.read).to eq(<<YAML)
 ---
 favorite_color: blue
 YAML
@@ -196,3 +246,4 @@ YAML
     end
   end
 end
+
