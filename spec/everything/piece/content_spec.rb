@@ -9,8 +9,6 @@ describe Everything::Piece::Content do
   end
 
   describe '#file_name' do
-    include_context 'with fake piece'
-
     let(:expected_file_name) do
       'index.md'
     end
@@ -21,8 +19,6 @@ describe Everything::Piece::Content do
   end
 
   describe '#file_path' do
-    include_context 'with fake piece'
-
     let(:expected_file_path) do
       "#{fake_piece_path}/index.md"
     end
@@ -85,8 +81,6 @@ MD
   end
 
   describe '#raw_markdown=' do
-    include_context 'with fake piece'
-
     let(:new_raw_markdown) do
       <<MD
 # New Markdown
@@ -103,8 +97,6 @@ MD
   end
 
   describe '#save' do
-    include_context 'with fake piece'
-
     before do
       FakeFS.activate!
 
@@ -176,3 +168,4 @@ MD
     end
   end
 end
+

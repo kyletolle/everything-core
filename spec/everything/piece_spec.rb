@@ -277,3 +277,4 @@ describe Everything::Piece do
     end
   end
 end
+
