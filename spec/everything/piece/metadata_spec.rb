@@ -35,7 +35,7 @@ describe Everything::Piece::Metadata do
     include_context 'with fake piece metadata'
 
     let(:metadata_absolute_dir) do
-      '/fake/everything/path/grond-crawled-on'
+      Pathname.new('/fake/everything/path/grond-crawled-on')
     end
     it "returns the metadata's absolute path" do
       expect(metadata.absolute_dir).to eq(metadata_absolute_dir)
@@ -52,7 +52,7 @@ describe Everything::Piece::Metadata do
     include_context 'with fake piece metadata'
 
     let(:metadata_absolute_path) do
-      '/fake/everything/path/grond-crawled-on/index.yaml'
+      Pathname.new('/fake/everything/path/grond-crawled-on/index.yaml')
     end
     it "returns the metadata's absolute path" do
       expect(metadata.absolute_path).to eq(metadata_absolute_path)
@@ -69,7 +69,7 @@ describe Everything::Piece::Metadata do
     include_context 'with fake piece metadata'
 
     let(:metadata_dir_relative_to_everything_path) do
-      'grond-crawled-on'
+      Pathname.new('grond-crawled-on')
     end
     it "returns the metadata's path relative to everything path" do
       expect(metadata.dir).to eq(metadata_dir_relative_to_everything_path)
@@ -98,7 +98,7 @@ describe Everything::Piece::Metadata do
     include_context 'with fake piece metadata'
 
     let(:metadata_path_relative_to_everything_path) do
-      'grond-crawled-on/index.yaml'
+      Pathname.new('grond-crawled-on/index.yaml')
     end
 
     it "returns the metadata's path relative to everything path" do

@@ -8,11 +8,11 @@ module Everything
       end
 
       def absolute_dir
-        @absolute_dir ||= File.join(Everything.path, dir)
+        @absolute_dir ||= Everything.path.join(dir)
       end
 
       def absolute_path
-        @absolute_path ||= File.join(absolute_dir, file_name)
+        @absolute_path ||= absolute_dir.join(file_name)
       end
 
       def dir
@@ -39,7 +39,7 @@ module Everything
       end
 
       def path
-        @path ||= File.join(dir, file_name)
+        @path ||= dir.join(file_name)
       end
 
       def raw_markdown
@@ -64,10 +64,8 @@ module Everything
       end
 
       def calculated_dir
-        everything_pathname = Pathname.new(Everything.path)
         full_pathname = Pathname.new(piece_path)
-        relative_pathname = full_pathname.relative_path_from(everything_pathname)
-        relative_pathname.to_s
+        _relative_pathname = full_pathname.relative_path_from(Everything.path)
       end
     end
   end

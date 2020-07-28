@@ -8,7 +8,7 @@ RSpec.shared_context 'with fake piece' do
     'grond-crawled-on'
   end
   let(:fake_piece_path) do
-    File.join(Everything.path, given_piece_name)
+    Everything.path.join(given_piece_name)
   end
 
   before do
@@ -22,7 +22,7 @@ RSpec.shared_context 'with fake piece content' do
   include_context 'with fake piece'
 
   let(:fake_piece_content_file_path) do
-    File.join(fake_piece_path, 'index.md')
+    fake_piece_path.join('index.md')
   end
 
   let(:given_markdown) do
@@ -46,7 +46,7 @@ RSpec.shared_context 'with fake piece metadata' do
   include_context 'with fake piece'
 
   let(:fake_piece_metadata_file_path) do
-    File.join(fake_piece_path, 'index.yaml')
+    fake_piece_path.join('index.yaml')
   end
 
   let(:given_yaml) do

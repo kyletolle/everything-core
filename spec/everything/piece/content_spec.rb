@@ -10,7 +10,7 @@ describe Everything::Piece::Content do
 
   describe '#absolute_dir' do
     let(:content_absolute_dir) do
-      '/fake/everything/path/grond-crawled-on'
+      Pathname.new('/fake/everything/path/grond-crawled-on')
     end
     it "returns the content's absolute path" do
       expect(content.absolute_dir).to eq(content_absolute_dir)
@@ -25,7 +25,7 @@ describe Everything::Piece::Content do
 
   describe '#absolute_path' do
     let(:content_absolute_path) do
-      '/fake/everything/path/grond-crawled-on/index.md'
+      Pathname.new('/fake/everything/path/grond-crawled-on/index.md')
     end
     it "returns the content's absolute path" do
       expect(content.absolute_path).to eq(content_absolute_path)
@@ -40,7 +40,7 @@ describe Everything::Piece::Content do
 
   describe '#dir' do
     let(:content_dir_relative_to_everything_path) do
-      'grond-crawled-on'
+      Pathname.new('grond-crawled-on')
     end
     it "returns the content's path relative to everything path" do
       expect(content.dir).to eq(content_dir_relative_to_everything_path)
@@ -103,7 +103,7 @@ MD
 
   describe '#path' do
     let(:content_path_relative_to_everything_path) do
-      'grond-crawled-on/index.md'
+      Pathname.new('grond-crawled-on/index.md')
     end
 
     it "returns the content's path relative to everything path" do
