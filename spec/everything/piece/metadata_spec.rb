@@ -31,6 +31,23 @@ describe Everything::Piece::Metadata do
     end
   end
 
+  describe '#dir' do
+    include_context 'with fake piece metadata'
+
+    let(:metadata_dir_relative_to_everything_path) do
+      'grond-crawled-on'
+    end
+    it "returns the metadata's path relative to everything path" do
+      expect(metadata.dir).to eq(metadata_dir_relative_to_everything_path)
+    end
+
+    it 'memoizes the value' do
+      first_dir_value = metadata.dir
+      second_dir_value = metadata.dir
+      expect(first_dir_value.object_id).to eq(second_dir_value.object_id)
+    end
+  end
+
   describe '#file_path' do
     include_context 'with fake piece'
 

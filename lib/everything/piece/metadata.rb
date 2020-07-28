@@ -15,6 +15,10 @@ module Everything
         @piece_path = piece_path
       end
 
+      def dir
+        @dir ||= calculated_dir
+      end
+
       def file_path
         @file_path ||= File.join(piece_path, file_name)
       end
@@ -40,6 +44,13 @@ module Everything
 
       def file_name
         'index.yaml'
+      end
+
+      def calculated_dir
+        everything_pathname = Pathname.new(Everything.path)
+        full_pathname = Pathname.new(piece_path)
+        relative_pathname = full_pathname.relative_path_from(everything_pathname)
+        relative_pathname.to_s
       end
     end
   end
