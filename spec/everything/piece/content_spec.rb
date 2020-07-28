@@ -1,34 +1,15 @@
+require 'fakefs/spec_helpers'
 require './spec/support/pieces'
 
 describe Everything::Piece::Content do
-  shared_context 'with tmp piece markdown file on disk' do
-    let(:tmp_piece_markdown_path) do
-      File.join(tmp_piece_path, 'index.md')
-    end
-
-    let(:given_markdown) do
-      <<MD
-# Piece Title Here
-
-The body is totally this right here.
-
-And it might even include multiple lines!
-MD
-    end
-
-    before do
-      File.open(tmp_piece_markdown_path, 'w') do |markdown_file|
-        markdown_file.puts given_markdown
-      end
-    end
-  end
+  include_context 'with fake piece'
 
   let(:content) do
-    described_class.new(tmp_piece_path)
+    described_class.new(fake_piece_path)
   end
 
   describe '#file_name' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:expected_file_name) do
       'index.md'
@@ -40,10 +21,10 @@ MD
   end
 
   describe '#file_path' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:expected_file_path) do
-      "#{tmp_piece_path}/index.md"
+      "#{fake_piece_path}/index.md"
     end
 
     it 'is the index.md under the piece' do
@@ -52,8 +33,7 @@ MD
   end
 
   describe '#title' do
-    include_context 'with tmp piece on disk'
-    include_context 'with tmp piece markdown file on disk'
+    include_context 'with fake piece content'
 
     let(:expected_title) do
       'Piece Title Here'
@@ -65,8 +45,7 @@ MD
   end
 
   describe '#body' do
-    include_context 'with tmp piece on disk'
-    include_context 'with tmp piece markdown file on disk'
+    include_context 'with fake piece content'
 
     let(:expected_body) do
     <<MD
@@ -82,8 +61,7 @@ MD
   end
 
   describe '#raw_markdown' do
-    include_context 'with tmp piece on disk'
-    include_context 'with tmp piece markdown file on disk'
+    include_context 'with fake piece content'
 
     let(:expected_raw_markdown) do
       given_markdown
@@ -107,7 +85,7 @@ MD
   end
 
   describe '#raw_markdown=' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:new_raw_markdown) do
       <<MD
@@ -125,29 +103,31 @@ MD
   end
 
   describe '#save' do
-    let(:tmp_dir) do
-      Dir.tmpdir
-    end
-
-    let(:tmp_piece_path) do
-      File.join(tmp_dir, 'a-test-piece')
-    end
+    include_context 'with fake piece'
 
     before do
+      FakeFS.activate!
+
       content.raw_markdown = "# Ship Shape"
     end
 
     after do
-      FileUtils.remove_entry(tmp_piece_path)
+      FileUtils.rm_rf(fake_piece_path)
+
+      FakeFS.deactivate!
     end
 
     context 'when the piece directory does not exist' do
+      before do
+        FileUtils.rm_rf(fake_piece_path)
+      end
+
       it 'creates the folder' do
-        expect(Dir.exist?(tmp_piece_path)).to eq(false)
+        expect(Dir.exist?(fake_piece_path)).to eq(false)
 
         content.save
 
-        expect(Dir.exist?(tmp_piece_path)).to eq(true)
+        expect(Dir.exist?(fake_piece_path)).to eq(true)
       end
 
       it 'creates the content markdown file' do
@@ -166,10 +146,6 @@ MD
     end
 
     context 'when the piece directory exists' do
-      before do
-        FileUtils.mkdir_p(tmp_piece_path)
-      end
-
       context 'when the content file does not exist' do
         it 'creates the content markdown file' do
           expect(File.exist?(content.file_path)).to eq(false)

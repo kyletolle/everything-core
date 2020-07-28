@@ -1,31 +1,12 @@
 require './spec/support/pieces'
 
 describe Everything::Piece::Metadata do
-  shared_context 'with tmp piece metadata file on disk' do
-    let(:tmp_piece_metadata_path) do
-      File.join(tmp_piece_path, 'index.yaml')
-    end
-
-    let(:given_yaml) do
-      <<YAML
----
-public: false
-YAML
-    end
-
-    before do
-      File.open(tmp_piece_metadata_path, 'w') do |metadata_file|
-        metadata_file.puts given_yaml
-      end
-    end
-  end
-
   let(:metadata) do
-    described_class.new(tmp_piece_path)
+    described_class.new(fake_piece_path)
   end
 
   describe '#[]' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:yaml_double) do
       instance_double(Hash)
@@ -51,10 +32,10 @@ YAML
   end
 
   describe '#file_path' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:expected_file_path) do
-      "#{tmp_piece_path}/index.yaml"
+      "#{fake_piece_path}/index.yaml"
     end
 
     it 'is the index.yaml under the piece' do
@@ -63,8 +44,7 @@ YAML
   end
 
   describe '#raw_yaml' do
-    include_context 'with tmp piece on disk'
-    include_context 'with tmp piece metadata file on disk'
+    include_context 'with fake piece metadata'
 
     let(:expected_raw_yaml) do
       {
@@ -91,7 +71,7 @@ YAML
   end
 
   describe '#raw_yaml=' do
-    include_context 'with tmp piece on disk'
+    include_context 'with fake piece'
 
     let(:new_raw_yaml) do
       <<YAML
@@ -109,15 +89,11 @@ YAML
   end
 
   describe '#save' do
-    let(:tmp_dir) do
-      Dir.tmpdir
-    end
-
-    let(:tmp_piece_path) do
-      File.join(tmp_dir, 'fake-piece-here')
-    end
+    include_context 'with fake piece'
 
     before do
+      FakeFS.activate!
+
       metadata.raw_yaml = <<YAML
 ---
 favorite_color: blue
@@ -125,16 +101,22 @@ YAML
     end
 
     after do
-      FileUtils.remove_entry(tmp_piece_path)
+      FileUtils.rm_rf(fake_piece_path)
+
+      FakeFS.deactivate!
     end
 
     context 'when the piece directory does not exist' do
+      before do
+        FileUtils.rm_rf(fake_piece_path)
+      end
+
       it 'creates the folder' do
-        expect(Dir.exist?(tmp_piece_path)).to eq(false)
+        expect(Dir.exist?(fake_piece_path)).to eq(false)
 
         metadata.save
 
-        expect(Dir.exist?(tmp_piece_path)).to eq(true)
+        expect(Dir.exist?(fake_piece_path)).to eq(true)
       end
 
       it 'creates the metadata yaml file' do
@@ -156,10 +138,6 @@ YAML
     end
 
     context 'when the piece directory exists' do
-      before do
-        FileUtils.mkdir_p(tmp_piece_path)
-      end
-
       context 'when the metadata file does not exist' do
         it 'creates the metadata yaml file' do
           expect(File.exist?(metadata.file_path)).to eq(false)
