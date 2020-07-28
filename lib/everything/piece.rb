@@ -20,6 +20,10 @@ module Everything
       @absolute_dir ||= File.join(Everything.path, dir)
     end
 
+    def absolute_path
+      @absolute_path ||= File.join(absolute_dir, file_name)
+    end
+
     def content
       @content ||= Content.new(full_path)
     end

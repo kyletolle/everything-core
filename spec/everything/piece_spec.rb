@@ -50,6 +50,21 @@ describe Everything::Piece do
     end
   end
 
+  describe '#absolute_path' do
+    let(:piece_absolute_path) do
+      '/fake/everything/path/here-is-our-piece/index.md'
+    end
+    it "returns the piece's absolute path" do
+      expect(piece.absolute_path).to eq(piece_absolute_path)
+    end
+
+    it 'memoizes the value' do
+      first_call_result = piece.absolute_path
+      second_call_result = piece.absolute_path
+      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    end
+  end
+
   describe '#body' do
     include_context 'with content double'
 
