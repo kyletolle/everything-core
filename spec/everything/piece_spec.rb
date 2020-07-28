@@ -31,32 +31,26 @@ describe Everything::Piece do
   end
 
   describe '#absolute_dir' do
-    let(:piece_absolute_dir) do
-      '/fake/everything/path/grond-crawled-on'
-    end
-    it "returns the piece's absolute path" do
-      expect(piece.absolute_dir).to eq(piece_absolute_dir)
-    end
+    include_context 'with content double'
 
-    it 'memoizes the value' do
-      first_call_result = piece.absolute_dir
-      second_call_result = piece.absolute_dir
-      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    it 'delegates to the content' do
+      allow(content_double).to receive(:absolute_dir)
+
+      piece.absolute_dir
+
+      expect(content_double).to have_received(:absolute_dir)
     end
   end
 
   describe '#absolute_path' do
-    let(:piece_absolute_path) do
-      '/fake/everything/path/grond-crawled-on/index.md'
-    end
-    it "returns the piece's absolute path" do
-      expect(piece.absolute_path).to eq(piece_absolute_path)
-    end
+    include_context 'with content double'
 
-    it 'memoizes the value' do
-      first_call_result = piece.absolute_path
-      second_call_result = piece.absolute_path
-      expect(first_call_result.object_id).to eq(second_call_result.object_id)
+    it 'delegates to the content' do
+      allow(content_double).to receive(:absolute_path)
+
+      piece.absolute_path
+
+      expect(content_double).to have_received(:absolute_path)
     end
   end
 
@@ -87,18 +81,14 @@ describe Everything::Piece do
   end
 
   describe '#dir' do
-    # TODO: This should just delegate to content...
-    let(:piece_dir_relative_to_everything_path) do
-      'grond-crawled-on'
-    end
-    it "returns the piece's path relative to everything path" do
-      expect(piece.dir).to eq(piece_dir_relative_to_everything_path)
-    end
+    include_context 'with content double'
 
-    it 'memoizes the value' do
-      first_dir_value = piece.dir
-      second_dir_value = piece.dir
-      expect(first_dir_value.object_id).to eq(second_dir_value.object_id)
+    it 'delegates to the content' do
+      allow(content_double).to receive(:dir)
+
+      piece.dir
+
+      expect(content_double).to have_received(:dir)
     end
   end
 
@@ -151,18 +141,14 @@ describe Everything::Piece do
   end
 
   describe '#path' do
-    let(:piece_path_relative_to_everything_path) do
-      'grond-crawled-on/index.md'
-    end
+    include_context 'with content double'
 
-    it "returns the piece's path relative to everything path" do
-      expect(piece.path).to eq(piece_path_relative_to_everything_path)
-    end
+    it 'delegates to the content' do
+      allow(content_double).to receive(:path)
 
-    it 'memoizes the value' do
-      first_path_value = piece.path
-      second_path_value = piece.path
-      expect(first_path_value.object_id).to eq(second_path_value.object_id)
+      piece.path
+
+      expect(content_double).to have_received(:path)
     end
   end
 
