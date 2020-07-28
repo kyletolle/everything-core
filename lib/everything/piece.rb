@@ -6,12 +6,6 @@ module Everything
 
     attr_reader :full_path
 
-    # TODO: Add the following methods:
-    #   - dir (Relative to Everything.path)
-    #   - path (Relative to Everything.path)
-    #   - absolute_dir
-    #   - absolute_path
-
     def initialize(full_path)
       @full_path = full_path
     end
