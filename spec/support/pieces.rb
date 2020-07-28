@@ -1,4 +1,3 @@
-require 'tmpdir'
 require 'fileutils'
 
 RSpec.shared_context 'with fake piece' do
