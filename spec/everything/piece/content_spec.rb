@@ -161,16 +161,14 @@ MD
   end
 
   describe '#save' do
-    before do
-      FakeFS.activate!
+    include_context 'with fakefs'
 
+    before do
       content.raw_markdown = "# Ship Shape"
     end
 
     after do
       FileUtils.rm_rf(fake_piece_path)
-
-      FakeFS.deactivate!
     end
 
     context 'when the piece directory does not exist' do
