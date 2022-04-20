@@ -2,6 +2,7 @@ require 'fileutils'
 
 RSpec.shared_context 'with fake piece' do
   include_context 'with fake everything path'
+  include_context 'with fakefs'
 
   let(:given_piece_name) do
     'grond-crawled-on'

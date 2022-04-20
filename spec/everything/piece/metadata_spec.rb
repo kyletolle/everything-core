@@ -164,8 +164,6 @@ YAML
     include_context 'with fake piece'
 
     before do
-      FakeFS.activate!
-
       metadata.raw_yaml = <<YAML
 ---
 favorite_color: blue
@@ -174,8 +172,6 @@ YAML
 
     after do
       FileUtils.rm_rf(fake_piece_path)
-
-      FakeFS.deactivate!
     end
 
     context 'when the piece directory does not exist' do

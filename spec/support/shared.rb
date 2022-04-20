@@ -12,21 +12,28 @@ RSpec.shared_context 'with fake everything path env var' do
   end
 end
 
+RSpec.shared_context 'with fakefs' do
+  before do
+    FakeFS.activate!
+  end
+
+  after do
+    FakeFS.deactivate!
+  end
+end
+
 RSpec.shared_context 'with fake everything path' do
   include FakeFS::SpecHelpers
 
   include_context 'with fake everything path env var'
+  include_context 'with fakefs'
 
   before do
-    FakeFS.activate!
-
     FileUtils.mkdir_p(fake_everything_path)
   end
 
   after do
     FileUtils.rm_rf(fake_everything_path)
-
-    FakeFS.deactivate!
   end
 end
 
